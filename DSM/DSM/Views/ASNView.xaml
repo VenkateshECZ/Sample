@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="DSM.Views.ASNView"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:local="clr-namespace:DSM.Views"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="1200" Height="700" Background="#ccff99">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50px" />
+            <RowDefinition />
+            <RowDefinition Height="50px" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="540" />
+            <ColumnDefinition Width="630" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="IRP Credentials" FontSize="22px" Margin="0,0,70,0" Foreground="#33331a" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <DataGrid Name="dgIrpCredential"  Margin="30,0,10,0"  Grid.Row="1" Grid.Column="0" Width="510" Height="580" FontSize="14" ItemsSource="{Binding ListIRPCredentials}" CanUserDeleteRows="False" SelectedItem="{Binding Selected_Client}"  AutoGenerateColumns="False" CanUserAddRows="False" VerticalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Client Id" IsReadOnly="True" Binding="{Binding Path = Client_ID}" Width="200"/>
+                <DataGridTextColumn Header="Client Secret" IsReadOnly="True" Binding="{Binding Path = ClientSecret}" Width="180"/>
+                <DataGridTemplateColumn Header="ACTION"  Width="110">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnEditCustomer" Content="Edit" Margin="0,0,0,0" FontSize="14" Width="50"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.EditCustomerKeyCommand}" />
+                                <Button x:Name="btnDeleteCustomer" Content="Delete" Margin="5,0,0,0" FontSize="14" Width="50"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteCustomerKeyCommand}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10" Background="#FF63686E">
+            <!--<Grid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Padding" Value="10,5"/>
+                </Style>
+            </Grid.Resources>-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <!--<RowDefinition Height="280"/>-->
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="325"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="Auth URL" Foreground="White" FontSize="16"/>
+
+            </StackPanel>
+            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Grid.Column="1" Margin="5,5">
+                <TextBox x:Name="txtauth" Text="{Binding ASNMASTER.Auth, Mode=TwoWay}" MaxLength="50" Height="25" Width="300"/>
+
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="2" Margin="-15,7,0,0">
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,0,180,0"/>
+                <TextBlock Text="Auth Url required" Foreground="Red" FontSize="14" Visibility="Hidden"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="Client Secret" Foreground="White" FontSize="16" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="5,5" HorizontalAlignment="Left">
+                <TextBox x:Name="txtClientSecret" Text="{Binding ASNMASTER.ClientSecret, Mode=TwoWay}" MaxLength="50" Height="25" Width="300" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Margin="-15,7,0,0">
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,0,180,0"/>
+                <TextBlock Text="Client Secret Required" Foreground="White" FontSize="14" Visibility="Hidden" />
+
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="User Name" Foreground="White" FontSize="16"  Margin="0,5" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="1" Margin="5,5" HorizontalAlignment="Left">
+                <TextBox x:Name="txtUserName" Text="{Binding ASNMASTER.UserName, Mode=TwoWay}" MaxLength="50" Height="25" Width="300"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="2" Margin="-15,7,0,0">
+                <!--<TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,7,180,0"/>-->
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,0,180,0"/>
+                <TextBlock Text="Username Required" Foreground="White" FontSize="14" Visibility="Hidden"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="Password" Foreground="White" FontSize="16"  Margin="0,5" />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="1" Margin="5,13,5,5" HorizontalAlignment="Left" Orientation="Horizontal">
+
+                <!--<TextBox x:Name="txtPassword" Text="{Binding IRPSettings.Password, Mode=TwoWay}" MaxLength="50" Height="25" Width="300"/>-->
+            </StackPanel>
+            <PasswordBox x:Name="txtPassword"  MaxLength="50"  Grid.Row="3" Grid.Column="1" Margin="5,13,20,5" Height="25" Width="300" >
+                <PasswordBox.InputBindings>
+
+                    <KeyBinding Key="Return" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=txtPassword}"/>
+                </PasswordBox.InputBindings>
+            </PasswordBox>
+            <StackPanel Grid.Row="3" Grid.Column="2" Margin="-15,7,0,0">
+                <!--<TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,10,180,0"/>-->
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,0,180,0"/>
+                <TextBlock Text="Password Required" Foreground="White" FontSize="14" Visibility="Hidden"/>
+            </StackPanel>
+            <!--<StackPanel Grid.Row="4" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="PublicKey" Foreground="White" FontSize="16"  Margin="0,5" />
+            </StackPanel>
+            <StackPanel Grid.Row="4" Grid.Column="1"  Margin="5,13,5,5" HorizontalAlignment="Left" Orientation="Horizontal">
+                -->
+            <!--<RadioButton Content="Original" FontSize="15" Command="{Binding CheckPrint}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" IsChecked="{Binding Customer.IsOriginalCopy, Mode=TwoWay}" Name="rdoOrginal"></RadioButton>
+                <RadioButton Content="Select Copies" FontSize="15" Command="{Binding CheckPrint}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" IsChecked="{Binding Customer.IsAllCopy, Mode=TwoWay}" Name="rdoAll"  Margin="5,0,0,0"></RadioButton>-->
+            <!--
+                <TextBox x:Name="txtPublicKey"  TextWrapping="Wrap"  AcceptsReturn="True"
+  VerticalScrollBarVisibility="Visible" Text="{Binding IRPSettings.PublicKey, Mode=TwoWay}" MaxLength="500" Height="465" Width="300"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" Grid.Column="2" Margin="-15,7,0,0">
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,10,180,0"/>
+                <TextBlock Text="Public Key Required" Foreground="White" FontSize="14" Visibility="Hidden"/>
+            </StackPanel>-->
+            <StackPanel Grid.Row="4" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="ASN URL" Foreground="White" FontSize="16"  Margin="0,5" />
+            </StackPanel>
+            <StackPanel Grid.Row="4" Grid.Column="1"  Margin="5,13,5,5" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBox x:Name="txtasn" Text="{Binding ASNMASTER.ASN, Mode=TwoWay}" MaxLength="50" Height="25" Width="300"/>
+
+            </StackPanel>
+            <StackPanel Grid.Row="4" Grid.Column="2" Margin="-15,7,0,0">
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,10,180,0"/>
+                <TextBlock Text="  Email ID Required" Foreground="White" FontSize="14" Visibility="Hidden"/>
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="5" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="Customer Code" Foreground="White" FontSize="16"  Margin="0,5" />
+            </StackPanel>
+            <StackPanel Grid.Row="5" Grid.Column="1"  Margin="5,13,5,5" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBox x:Name="txtcustomercode" Text="{Binding ASNMASTER.Customer_Code, Mode=TwoWay}" MaxLength="50" Height="25" Width="300"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5" Grid.Column="2" Margin="-15,7,0,0">
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,10,180,0"/>
+                <TextBlock Text="IP Address Required" Foreground="White" FontSize="14" Visibility="Hidden"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="6" Grid.Column="0" Margin="5,5">
+                <TextBlock Text="Client ID" Foreground="White" FontSize="16"  Margin="0,5" />
+            </StackPanel>
+            <StackPanel Grid.Row="6" Grid.Column="1" Margin="5,13,5,5" HorizontalAlignment="Left" Orientation="Horizontal">
+                <TextBox x:Name="txtclientid" Text="{Binding ASNMASTER.Client_ID, Mode=TwoWay}" MaxLength="15" Height="25" Width="300"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6" Grid.Column="2" Margin="-15,7,0,0">
+                <TextBlock Text="*" Foreground="Red" FontSize="14" Visibility="Visible" Width="5" Margin="-15,10,180,0"/>
+                <TextBlock Text="GSTIN required" Foreground="White" FontSize="14" Visibility="Hidden"/>
+            </StackPanel>
+            <StackPanel Grid.Row="7" Grid.Column="0" Margin="5,5" Visibility="Hidden" >
+                <TextBlock Text="ID" Foreground="Black" FontSize="16"  Margin="0,5" />
+            </StackPanel>
+            <StackPanel Grid.Row="7" Grid.Column="1" Margin="5,13,5,5" HorizontalAlignment="Left" Orientation="Horizontal" Visibility="Hidden">
+                <TextBox x:Name="txtID" Text="{Binding IRPSettings.ID, Mode=TwoWay}" MaxLength="15" Height="25" Width="300"/>
+            </StackPanel>
+
+        </Grid>
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="5,5">
+            <Button x:Name="btnCreateClient" Background="#FF63686E" Content="Save" Foreground="White" FontSize="14" Width="100" Command="{Binding CreateASNCommand}" CommandParameter="{Binding ElementName=txtPassword}"  />
+        </StackPanel>
+    </Grid>
+</UserControl>

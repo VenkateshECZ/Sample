@@ -1,0 +1,166 @@
+﻿<UserControl x:Class="DSM.Views.MasterView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism ="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:local="clr-namespace:DSM.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="{x:Static SystemParameters.PrimaryScreenHeight}" d:DesignWidth="{x:Static SystemParameters.PrimaryScreenWidth}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210" MaxWidth="220"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Visibility="{Binding ShowMenu}" Background="#007ACC">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TreeView Background="#4d4d4d" BorderBrush="Black">
+                    <!--<TreeViewItem Header="Dashboard" FontWeight="Bold" FontSize="18" Margin="5">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="DashBoardView"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>-->
+                    <TreeViewItem Header="MASTER" Foreground="White" FontWeight="Bold" FontSize="15" Margin="5" IsEnabled="{Binding ShowMaster}">
+                        <TreeViewItem Header="DS Master" FontWeight="DemiBold"  FontSize="15" Margin="0,5,0,5" Foreground="White">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Selected">
+                                    <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="DSMasterView"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Customer Master" FontWeight="DemiBold"  FontSize="15" Margin="0,5,0,5" Foreground="White" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Selected">
+                                    <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="CustomerMasterView"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Input Layout" FontWeight="DemiBold"  FontSize="15" Margin="0,5,0,5" Foreground="White" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Selected">
+                                    <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="Input_Layout"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="SETTINGS" Foreground="White" FontWeight="Bold" FontSize="15" Margin="5" IsEnabled="{Binding ShowSettings}" >
+                        <TreeViewItem Header="Basic Settings" FontWeight="DemiBold" FontSize="15" Margin="0,5,0,5" Foreground="White" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Selected">
+                                    <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="SettingsView" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeViewItem>
+                        <TreeViewItem Header="EDI" FontWeight="DemiBold" FontSize="15" Margin="0,5,0,5" Foreground="White" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Selected">
+                                    <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="EDIView" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <!--<TreeViewItem Header="INVOICE REPROCESS" Foreground="White" FontWeight="Bold" FontSize="15" Margin="5"  IsEnabled="{Binding ShowReprocess}" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ReprocessView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>-->
+                    <TreeViewItem Header="MANUAL API POST" Foreground="White" FontWeight="Bold" FontSize="15" Margin="5" IsEnabled="{Binding ShowManual}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ManualApiView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>
+                   
+                    <TreeViewItem Header="QUARANTINE INVOICES" Foreground="White" FontWeight="Bold" FontSize="15" Margin="5" IsEnabled="{Binding ShowQuarantine}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ManualScanView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>
+                    <!--<TreeViewItem Header="Report" FontWeight="Bold" FontSize="18" Margin="5">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ReportView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>-->
+                    <TreeViewItem Header="REPORTS" Foreground="White" FontWeight="Bold" FontSize="15" Margin="5" IsEnabled="{Binding ShowReports}">
+                        <TreeViewItem Header="Signed Reports" FontWeight="DemiBold" FontSize="15" Margin="0,5,0,5" Foreground="White">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Selected">
+                                    <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ReportView" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Reports Reprint" FontWeight="DemiBold" FontSize="15" Margin="0,5,0,5" Foreground="White" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Selected">
+                                    <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ReportReprintView" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="TATA API" Foreground="White" FontWeight="Bold" FontSize="15" Margin="5" IsEnabled="{Binding ShowManual}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ASNView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>
+
+                    <!--<TreeViewItem Header="TATA API" FontWeight="Bold" Foreground="White"  FontSize="15">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding NavigationCommand}" CommandParameter="ASNView" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>-->
+                    <TreeViewItem Header="EXIT" Foreground="White" FontWeight="Bold"  FontSize="15" Margin="5">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Selected">
+                                <i:InvokeCommandAction Command="{Binding CloseCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TreeViewItem>
+                    <Button Content="" BorderThickness="0" Click="Minimize_btn" RenderTransformOrigin="0.5,8.6" HorizontalAlignment="Center" Height="30" Width="35">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="180"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+
+                        <Button.Background>
+                            <ImageBrush ImageSource="/images/iconfinder_minimize-2_2561246.png"/>
+                        </Button.Background>
+                    </Button>
+
+
+                </TreeView>
+            </Grid>
+
+            <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" Background="#ccff99">
+                <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                    <ItemsControl prism:RegionManager.RegionName="ChildRegion" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="765px"></ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

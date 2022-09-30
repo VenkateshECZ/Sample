@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="DSM.Views.ManualApiView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:local="clr-namespace:DSM.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1200" Height="700" Background="#ccff99">
+    <Grid Margin="60,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <!--<RowDefinition Height="50"/>-->
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <!--<ColumnDefinition Width="310" />
+            <ColumnDefinition Width="310" />
+            <ColumnDefinition Width="310" />-->
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,20,0,0">
+            <TextBlock  HorizontalAlignment="Left"  Text="Manual API Post" Foreground="#33331a" FontSize="25" ></TextBlock>
+            <TextBlock  HorizontalAlignment="Left"  Text="Invoice No" Foreground="#33331a" FontSize="25"  Margin="200,-35,0,0"></TextBlock>
+            <TextBox  x:Name="txtinvoiceno"  Text="{Binding SearchInvoiceNo, Mode=TwoWay}"  FontSize="25" Height="60" Width="300" Margin="-144,-37,0,0"   />
+            <Button x:Name="btnBrowse4" Width="120" Height="57" Content="Search" Background="#FF63686E" Foreground="White" FontSize="18"
+                       Command="{Binding SearchCommand}" CommandParameter="Flatfilepath"  Margin="150,-80,0,0"/>
+
+        </StackPanel>
+        <Border Grid.Row="1" HorizontalAlignment="Left" Grid.Column="0">
+            <StackPanel Margin="0,0,0,0">
+                <DataGrid Name="dgPending"  Background="#FF63686E" Height="600" FontSize="14" ItemsSource="{Binding InvoiceList}" SelectedItem="{Binding SelectedAPI}" AutoGenerateColumns="False" CanUserAddRows="False"  Margin="0,5" VerticalScrollBarVisibility="Auto" Width="671">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="INVOICE NO" IsReadOnly="True" Binding="{Binding Path = InvNumber}" Width="145"/>
+                        <DataGridTextColumn Header="INVOICE DATE" IsReadOnly="True" Binding="{Binding Path = InvDate, StringFormat=dd/MM/yyyy}" Width="145"/>
+                        <!--<DataGridTextColumn Header="API STATUS" IsReadOnly="True" Binding="{Binding Path = ApiStatus}" Width="145"/>
+                        <DataGridTextColumn Header="API MESSAGE" IsReadOnly="True" Binding="{Binding Path = ApiMsg}" Width="350"/>-->
+                        <DataGridTemplateColumn Header="ACTION"  Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="btnPOSTapi" Content="POST" Margin="0,0,0,0" FontSize="12" Width="100"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.PostAPIKeyCommand}" />
+                                        <!--<Button x:Name="btnDeleteCustomer" Content="Delete" Margin="5,0,0,0" FontSize="12" Width="90"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteCustomerKeyCommand}" />-->
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
